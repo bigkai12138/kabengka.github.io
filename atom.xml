@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-07T05:44:22.374Z</updated>
+  <updated>2020-01-11T02:58:51.647Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,46 +17,26 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>title</title>
-    <link href="http://yoursite.com/2020/01/07/title/"/>
-    <id>http://yoursite.com/2020/01/07/title/</id>
-    <published>2020-01-07T05:43:59.000Z</published>
-    <updated>2020-01-07T05:44:22.374Z</updated>
+    <title>OOP</title>
+    <link href="http://yoursite.com/2020/01/11/OOP/"/>
+    <id>http://yoursite.com/2020/01/11/OOP/</id>
+    <published>2020-01-11T02:55:08.000Z</published>
+    <updated>2020-01-11T02:58:51.647Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;&lt;img src=&quot;/2020/01/07/title/timg.jpg&quot;
-        
-      
+      &lt;h3 id=&quot;抽象&quot;&gt;&lt;a href=&quot;#抽象&quot; class=&quot;headerlink&quot; title=&quot;抽象&quot;&gt;&lt;/a&gt;抽象&lt;/h3&gt;&lt;p&gt;面向对象程序设计(Object-oriented Programming   OOP)&lt;/p&gt;
+&lt;p&gt;解空间（指对问题建模的地方，比如计算机）&lt;br&gt;问题空间（问题存在的地方，比如一个业务）&lt;/p&gt;
+&lt;p&gt;两种建模方式&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;程序员必须建立在机器模型和实际待解决问题的模型之间的关联（使得程序难以编写，维护代价高昂）&lt;/li&gt;
+&lt;li&gt;只针对待解问题的建模（只能用于解决特定类型的问题）&lt;/li&gt;&lt;/ol&gt;
     
     </summary>
     
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2020/01/06/hello-world/"/>
-    <id>http://yoursite.com/2020/01/06/hello-world/</id>
-    <published>2020-01-06T11:33:25.845Z</published>
-    <updated>2020-01-07T05:02:36.537Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
   </entry>
   
