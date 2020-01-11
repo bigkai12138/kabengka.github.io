@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-11T03:05:39.819Z</updated>
+  <updated>2020-01-11T10:04:04.903Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>操作系统入门简介</title>
+    <link href="http://yoursite.com/2020/01/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2020/01/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%E7%AE%80%E4%BB%8B/</id>
+    <published>2020-01-11T09:32:40.000Z</published>
+    <updated>2020-01-11T10:04:04.903Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;操作系统的两个功能：为用户提供抽象和管理计算机资源&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在硬件的顶部是软件。多数计算机有两种运行模式：内核态和用户态。软件中最基础的部分是操作系统，它允许在内核态（也称为管态、核心态）。在这个模式汇总，操作系统具有对所有硬件的访问权限。软件的其余部分运行在用户态，在用户态下，只使用了机器指令中的一个子集。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="操作系统" scheme="http://yoursite.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>OOP</title>
-    <link href="http://yoursite.com/2020/01/11/OOP/"/>
-    <id>http://yoursite.com/2020/01/11/OOP/</id>
-    <published>2020-01-11T02:55:08.000Z</published>
-    <updated>2020-01-11T03:05:39.819Z</updated>
+    <link href="http://yoursite.com/2020/01/05/OOP/"/>
+    <id>http://yoursite.com/2020/01/05/OOP/</id>
+    <published>2020-01-05T02:55:08.000Z</published>
+    <updated>2020-01-11T08:15:22.542Z</updated>
     
     <summary type="html">
     
