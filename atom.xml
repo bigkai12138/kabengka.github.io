@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-11T02:58:51.647Z</updated>
+  <updated>2020-01-11T03:05:39.819Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,16 +21,12 @@
     <link href="http://yoursite.com/2020/01/11/OOP/"/>
     <id>http://yoursite.com/2020/01/11/OOP/</id>
     <published>2020-01-11T02:55:08.000Z</published>
-    <updated>2020-01-11T02:58:51.647Z</updated>
+    <updated>2020-01-11T03:05:39.819Z</updated>
     
     <summary type="html">
     
       &lt;h3 id=&quot;抽象&quot;&gt;&lt;a href=&quot;#抽象&quot; class=&quot;headerlink&quot; title=&quot;抽象&quot;&gt;&lt;/a&gt;抽象&lt;/h3&gt;&lt;p&gt;面向对象程序设计(Object-oriented Programming   OOP)&lt;/p&gt;
 &lt;p&gt;解空间（指对问题建模的地方，比如计算机）&lt;br&gt;问题空间（问题存在的地方，比如一个业务）&lt;/p&gt;
-&lt;p&gt;两种建模方式&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;程序员必须建立在机器模型和实际待解决问题的模型之间的关联（使得程序难以编写，维护代价高昂）&lt;/li&gt;
-&lt;li&gt;只针对待解问题的建模（只能用于解决特定类型的问题）&lt;/li&gt;&lt;/ol&gt;
     
     </summary>
     
