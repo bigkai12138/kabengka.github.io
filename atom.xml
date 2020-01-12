@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-12T03:09:27.211Z</updated>
+  <updated>2020-01-12T08:42:08.719Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>进程与线程</title>
+    <link href="http://yoursite.com/2020/01/12/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://yoursite.com/2020/01/12/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</id>
+    <published>2020-01-12T07:18:28.000Z</published>
+    <updated>2020-01-12T08:42:08.719Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;进程&quot;&gt;&lt;a href=&quot;#进程&quot; class=&quot;headerlink&quot; title=&quot;进程&quot;&gt;&lt;/a&gt;进程&lt;/h3&gt;&lt;p&gt;4种主要事件会导致进程的初始化：&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="操作系统" scheme="http://yoursite.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>操作系统入门简介</title>
