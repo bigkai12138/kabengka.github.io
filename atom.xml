@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-11T10:04:04.903Z</updated>
+  <updated>2020-01-12T03:09:27.211Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,12 +21,11 @@
     <link href="http://yoursite.com/2020/01/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%E7%AE%80%E4%BB%8B/"/>
     <id>http://yoursite.com/2020/01/11/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8%E7%AE%80%E4%BB%8B/</id>
     <published>2020-01-11T09:32:40.000Z</published>
-    <updated>2020-01-11T10:04:04.903Z</updated>
+    <updated>2020-01-12T03:09:27.211Z</updated>
     
     <summary type="html">
     
       &lt;h2 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;操作系统的两个功能：为用户提供抽象和管理计算机资源&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在硬件的顶部是软件。多数计算机有两种运行模式：内核态和用户态。软件中最基础的部分是操作系统，它允许在内核态（也称为管态、核心态）。在这个模式汇总，操作系统具有对所有硬件的访问权限。软件的其余部分运行在用户态，在用户态下，只使用了机器指令中的一个子集。&lt;/p&gt;
     
     </summary>
     
@@ -37,16 +36,53 @@
   </entry>
   
   <entry>
+    <title>一切皆对象(2)</title>
+    <link href="http://yoursite.com/2020/01/08/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(2)/"/>
+    <id>http://yoursite.com/2020/01/08/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(2)/</id>
+    <published>2020-01-08T06:58:59.000Z</published>
+    <updated>2020-01-12T07:05:08.245Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;访问控制权限&quot;&gt;&lt;a href=&quot;#访问控制权限&quot; class=&quot;headerlink&quot; title=&quot;访问控制权限&quot;&gt;&lt;/a&gt;访问控制权限&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;package用于控制构件构建捆绑到一个内聚的类库单元中。访问修饰符会因此受到影响。访问权限控制的等级，从最小到最大权限依次为：public，protected、包访问权限、private&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一切皆对象(1)</title>
+    <link href="http://yoursite.com/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/"/>
+    <id>http://yoursite.com/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/</id>
+    <published>2020-01-07T03:03:36.000Z</published>
+    <updated>2020-01-12T07:05:17.037Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 java中一切都是对象，操作的标识符便是对象的一个“引用”。例：&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>OOP</title>
     <link href="http://yoursite.com/2020/01/05/OOP/"/>
     <id>http://yoursite.com/2020/01/05/OOP/</id>
     <published>2020-01-05T02:55:08.000Z</published>
-    <updated>2020-01-11T08:15:22.542Z</updated>
+    <updated>2020-01-12T03:09:30.809Z</updated>
     
     <summary type="html">
     
       &lt;h3 id=&quot;抽象&quot;&gt;&lt;a href=&quot;#抽象&quot; class=&quot;headerlink&quot; title=&quot;抽象&quot;&gt;&lt;/a&gt;抽象&lt;/h3&gt;&lt;p&gt;面向对象程序设计(Object-oriented Programming   OOP)&lt;/p&gt;
-&lt;p&gt;解空间（指对问题建模的地方，比如计算机）&lt;br&gt;问题空间（问题存在的地方，比如一个业务）&lt;/p&gt;
     
     </summary>
     
