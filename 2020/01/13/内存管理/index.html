@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="内存抽象无内存抽象的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存管理">
+<meta property="og:url" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="张三的歌">
+<meta property="og:description" content="内存抽象无内存抽象的问题">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/2.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/5.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/7.png">
+<meta property="article:published_time" content="2020-01-13T07:49:31.000Z">
+<meta property="article:modified_time" content="2020-01-13T09:13:22.817Z">
+<meta property="article:author" content="张三">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>内存管理 | 张三的歌</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="张三的歌" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张三的歌</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">学习是一种信仰</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-about"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-categories"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archives"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="张三">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张三的歌">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内存管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-13 15:49:31 / 修改时间：17:13:22" itemprop="dateCreated datePublished" datetime="2020-01-13T15:49:31+08:00">2020-01-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="内存抽象"><a href="#内存抽象" class="headerlink" title="内存抽象"></a>内存抽象</h2><p><strong>无内存抽象的问题</strong></p>
+<a id="more"></a>
+<p>由于用户都是直接访问和操作物理地址，可能造成</p>
+<ol>
+<li>用户程序可以访问任意内存，容易破坏操作系统，造成崩溃</li>
+<li>同时运行多个程序特别困难</li>
+</ol>
+<p><strong>内存抽象——地址空间</strong>：</p>
+<p>把进程对应的内存依旧留在物理内存中，需要的时候就切换到特定的区域。</p>
+<p>从进程的角度看，内存可能是这样的<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/1.png" alt="进程角度内存的模型"></p>
+<p>真实的物理内存可能是这样的：<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/2.png" alt="真实的物理内存模型"></p>
+<p><strong>基址寄存器与界限寄存器可以简单的动态重定位：</strong>每个内存地址送到内存之前，都会自动加上基址寄存器的内容。</p>
+<h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>虚拟内存是现代操作系统普遍使用的一种技术。抽象满足了多进程的要求，但很多情况下，现有内存无法满足仅仅一个大进程的内存要求。</p>
+<p>有两种处理内存超载的通用方法。</p>
+<ul>
+<li>交换技术。交换会在内存中产生多个空闲区，需要通过将进程尽量向下移，将小的空闲区合成一块大的。这种<code>内存紧缩</code>技术需要一定的时间。</li>
+<li>虚拟内存。</li>
+</ul>
+<blockquote>
+<p>虚拟内存包括内存管理和虚拟内存管理。</p>
+<p>内存管理包括程序装入等概念、交换技术、连续分配管理方式和非连续分配管理方式（分页、分段、段页式）。<br>虚拟内存管理包括虚拟内存概念、请求分页管理方式、页面置换算法、页面分配策略、工作集和抖动。</p>
+</blockquote>
+<p>空闲内存管理：在动态分配内存时，操作系统需要跟踪内存使用情况，一般用两种方法进行追踪：位图和空闲区链表。</p>
+<ul>
+<li>使用位图时，内存可能被划分成若干个分配单元，每个分配单元对应于位图中的一位。用0和1表示是否空闲。</li>
+<li>维护一个记录已分配内存段和空闲内存段的链表。当按照地址顺序在链表中存放进程和空闲区时，使用算法（首次适配、下次适配、最佳适配、最差适配、快速适配）为创建的进程分配内存</li>
+</ul>
+<hr>
+<p>虚拟内存的基本思想是：每个进程有用独立的逻辑地址空间，内存被分为大小相等的多个块,称为<strong>页</strong>(Page).每个页都是一段连续的地址。对于进程来看,逻辑上貌似有很多内存空间，其中<strong>一部分对应物理内存上的一块(称为页框，通常页和页框大小相等)</strong>，还有一些没加载在内存中的对应在硬盘上。当程序引用到一部分在物理内存中的地址空间时，由硬件立即执行必要的银蛇。当程序引用到一部分不在物理内存中的空间地址时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的指令。</p>
+<p><em>从某个角度来说，虚拟内存是对基址寄存器和界限寄存器的一种综合。</em></p>
+<h2 id="页式存储管理"><a href="#页式存储管理" class="headerlink" title="页式存储管理"></a>页式存储管理</h2><p>将程序的逻辑地址空间划分为固定大小的页(page)，而物理内存划分为同样大小的页框(page frame)。程序加载时，可将任意一页放人内存中任意一个页框，这些页框不必连续，从而实现了离散分配。在页式存储管理方式中地址结构由两部构成，前一部分是页号（将页号作为页表的索引，以得出对应于该虚拟页面的页框号），后一部分为页内地址w（位移量）。如图所示：<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/3.jpg" alt="页式存储结构"></p>
+<p>当MMU注意到某页面每一被映射，于是使CPU陷入到操作系统，这个陷阱被称为缺页中断或缺页错误。</p>
+<p><strong>为了更好地管理页面和页框，程序需要对应的表项对资源的使用情况进行记录</strong></p>
+<p><strong>进程页表</strong>：完成逻辑页号(本进程的地址空间)到物理页面号(实际内存空间，也叫块号)的映射。每个进程有一个页表，描述该进程占用的物理页面及逻辑排列顺序。<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/4.jpg" alt="进程页表结构图"></p>
+<p> <strong>物理页面表：</strong>整个系统有一个物理页面表，描述物理内存空间的分配使用状况，其数据结构可<strong>采用位示图和空闲页链表</strong>。对于位示图法，即如果该页面已被分配，则对应比特位置1，否置0.<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/5.jpg" alt="物理页表结构图"></p>
+<p><strong>请求表：</strong>整个系统有一个请求表，描述系统内各个进程页表的位置和大小，用于地址转换也可以结合到各进程的PCB(进程控制块)里。<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/6.jpg" alt="请求表项结构图"></p>
+<p><strong>加速分页过程</strong>：因为大多数程序总是对少量的页面进行多次的访问，因此只有很少的页表项被反复读取。计算机设计者为计算机设置一个小型的硬件设备，将虚拟地址直接映射到物理地址，而不必访问页表，这种设备成为转换检测缓冲区（TLB），有时又被成相联存储器或快表。</p>
+<p><em>TLB设备可能出现软失效（次要缺页错误，严重缺页错误）和硬失效，需要进行维护。</em></p>
+<p><strong>针对大内存的页表</strong></p>
+<ol>
+<li>多级表项</li>
+<li>倒排表项</li>
+</ol>
+<h2 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h2><p>1、最优页面置换算法</p>
+<p>选择最长时间内不会被访问的页面丢掉。越久越好。但是理论上不能实现。</p>
+<p>2、最近未使用页面置换算法(NRU)算法</p>
+<p>找到最久没有使用的页面置换出去，页面被访问时设置R位，修改时设置M位，R位定期清0；</p>
+<p>把页面分四类</p>
+<p>0类.未被访问，未被修改的R=M=0</p>
+<p>1类未被访问，被修改R=0,M=1</p>
+<p>2类被访问，未被修改R=1,M=0</p>
+<p>3类被访问，被修改R=1，M=1</p>
+<p>系统从类类编号最小的非空类随机挑选一个置换</p>
+<p>3．先进先出FIFO</p>
+<p>   维持一个保存当前所有页面的链表，新使用的插在链表尾，从头部淘汰老旧页面，使得最久进入的排在头部，</p>
+<p>4 .第二次机会置换算法</p>
+<p>   改进版FIFO，淘汰旧页面时先从检查头部页面的R位，若为1，则说明此页面最近被使用过，置R=0，把它加到尾部去，重新设置其装入时间为当前时刻，继续搜寻，若为0，如果此页面被写过，把它写回磁盘再淘汰，若未被写，直接淘汰</p>
+<p>5.时钟页面置换算法</p>
+<p>   维持一个保存所有页面的环形链表，一个指针指向最老页面，发生缺页中断时，检查指针指向页面，若R=0，则更新它，若R=1,清除R位，指针前移，继续搜索</p>
+<p>6.最近最少使用页面置换算法LRU</p>
+<p>  找到最久没有使用过的置换之。需要特殊硬件实现（如利用一个n*n的矩阵）</p>
+<p>7.最不常用算法NFU</p>
+<p>为每个页面维持一个初值0的计数器，每次时钟中断，由操作系统扫描所有页面，把计数器加上当前的R位更新，这样每个计数器的值大概反映了被访问的频繁程度。缺页中断时，置换计数器数值最小的页面</p>
+<ol start="8">
+<li><p>老化算法-改进的LRU</p>
+<p>在R位加进之前，先把计数器值右移一位，把R位加到计数器最左边，</p>
+</li>
+</ol>
+<p>特点：每次时钟滴答只能记下一位，因此如果两个页面在同一个时钟滴答期间被访问是不能分出的，而且由于计数器是有限位数，假设是8位，如果很多页面在8个时钟滴答都未被访问的话，就都是全零位无法区分，但实际情况是，若已经这么久没有被访问了，该页面一般也不是很重要了</p>
+<p>9.工作集页面置换算法</p>
+<p>   定义一个工作集：在过去t秒内被访问的页面的集合。</p>
+<p>扫描所有页面，若R= =1，说明在这个时钟滴答被访问了，它应该是工作集的一部分，把当前时间写入页表项的“上次使用时间“ 。若R==0，且生存时间（当前时间-上次使用时间）&gt;t,置换它，如果&lt;t,记住最小时间</p>
+<p>10.工作集时钟页面置换算法</p>
+<p> 维持一个以页框为元素的循环表，形成一个环，每个表项包括上次使用时间，R位M位</p>
+<p>缺页中断时，首先检查指针指向的页面，若R位= =1，则说明它最近被访问了，把R位置为0，指针指向下一个位置，若R==0，若它的生存时间&gt;t且此页面干净，置换之、</p>
+<blockquote>
+<p>一些页面置换算法既适用于局部置换算法也适用于全局置换算法。</p>
+</blockquote>
+<p><strong>将地址空间分为指令空间（i 空间）和数据空间（d 空间）</strong></p>
+<p>为保证有足够的空闲页框，很多分页系统有一个分页守护进程的后台进程用于实施清除策略。</p>
+<p>允许程序员对内存映射进行控制的一个原因就是为了允许两个或者多个进程共享同一部分内存（另一种高级存储管理技术是分布式共享内容）。页面共享也可以用来实现高性能的消息传递系统。</p>
+<blockquote>
+<p>缺页中断处理的详细过程<br>　　1) 硬件陷入内核，在内核堆栈中保存程序计数器。大多数机器将当前指令的各种状态信息保存在特殊的CPU寄存器中。<br>　　2) 启动一个汇编代码例程保存通用寄存器和其他易失的信息，以免被操作系统破坏。这个例程将操作系统作为一个函数来调用。<br>　　3) 当操作系统发现一个缺页中断时，尝试发现需要哪个虚拟页面。通常一个硬件寄存器包含了这一信息，如果没有的话，操作系统必须检索程序计数器，取出这条指令，用软件分析这条指令，看看它在缺页中断时正在做什么。<br>　　4) 一旦知道了发生缺页中断的虚拟地址，操作系统检查这个地址是否有效，并检查存取与保护是否一致。如果不一致，向进程发出一个信号或杀掉该进程。如果地址有效且没有保护错误发生，系统则检查是否有空闲页框。如果没有空闲页框，执行页面置换算法寻找一个页面来淘汰。<br>　　5) 如果选择的页框“脏”了，安排该页写回磁盘，并发生一次上下文切换，挂起产生缺页中断的进程，让其他进程运行直至磁盘传输结束。无论如何，该页框被标记为忙，以免因为其他原因而被其他进程占用。<br>　　6) 一旦页框“干净”后（无论是立刻还是在写回磁盘后），操作系统查找所需页面在磁盘上的地址，通过磁盘操作将其装入。该页面被装入后，产生缺页中断的进程仍然被挂起，并且如果有其他可运行的用户进程，则选择另一个用户进程运行。<br>　　7) 当磁盘中断发生时，表明该页已经被装入，页表已经更新可以反映它的位置，页框也被标记为正常状态。<br>　　8) 恢复发生缺页中断指令以前的状态，程序计数器重新指向这条指令。<br>　　9) 调度引发缺页中断的进程，操作系统返回调用它的汇编语言例程。<br>　　10) 该例程恢复寄存器和其他状态信息                                                                                                                                                                                         </p>
+<p>指令备份：CPU设计者通过使用一个隐藏的寄存器在每条指令执行之前，把程序计数器的内容复制到该寄存器。通过这些消息，操作系统可以消除缺页中断引起的访问而设法修复它。</p>
+</blockquote>
+<h2 id="段式存储管理"><a href="#段式存储管理" class="headerlink" title="段式存储管理"></a>段式存储管理</h2><blockquote>
+<p>每个程序可由若干段组成，每一段都可以从“0”开始编址，段内的地址是连续的<br>分段存储器的逻辑地址由两部分组成和页式存储管理（段号：单元号）有本质区别。“段号：单元号”是用户程序设计自己设定的。而“页号：单元号”是系统自动切割的，用户并不知道。所以分页存储器是用户编程原则上不可见的，除了性能优化。而分段存储器是用户可控制的。</p>
+</blockquote>
+<p>程序的分段结构：<img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/5.png" alt="分段结构图"></p>
+<p><strong>段式存储管理的地址转换流程</strong><img src="/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/7.png" alt="段式存储的地址转换图"></p>
+<p><strong>段的共享</strong>:</p>
+<ul>
+<li>通过进程段表中的项指向同一个段基址来实现</li>
+<li>对共享段的信息必须进行保护，如规定只能读出不能写入，不满足保护条件则产生保护中断</li>
+</ul>
+<h2 id="分段与分页的结合"><a href="#分段与分页的结合" class="headerlink" title="分段与分页的结合"></a>分段与分页的结合</h2><p>如果一个段比较大，把它整个保存在内存不是很方便，因此可以对它进行分页。</p>
+<p><strong>MULTICS</strong></p>
+<p><strong>Intel x86</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/13/%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF/" rel="prev" title="类型信息">
+      <i class="fa fa-chevron-left"></i> 类型信息
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存抽象"><span class="nav-text">内存抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟内存"><span class="nav-text">虚拟内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页式存储管理"><span class="nav-text">页式存储管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面置换算法"><span class="nav-text">页面置换算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#段式存储管理"><span class="nav-text">段式存储管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分段与分页的结合"><span class="nav-text">分段与分页的结合</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张三"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">张三</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张三</span>
+</div>
+
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

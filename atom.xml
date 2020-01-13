@@ -6,15 +6,91 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-12T09:19:35.434Z</updated>
+  <updated>2020-01-13T09:13:22.817Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>张三</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>内存管理</title>
+    <link href="http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/>
+    <id>http://yoursite.com/2020/01/13/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</id>
+    <published>2020-01-13T07:49:31.000Z</published>
+    <updated>2020-01-13T09:13:22.817Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;内存抽象&quot;&gt;&lt;a href=&quot;#内存抽象&quot; class=&quot;headerlink&quot; title=&quot;内存抽象&quot;&gt;&lt;/a&gt;内存抽象&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;无内存抽象的问题&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="操作系统" scheme="http://yoursite.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>类型信息</title>
+    <link href="http://yoursite.com/2020/01/13/%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF/"/>
+    <id>http://yoursite.com/2020/01/13/%E7%B1%BB%E5%9E%8B%E4%BF%A1%E6%81%AF/</id>
+    <published>2020-01-13T07:21:04.000Z</published>
+    <updated>2020-01-13T07:21:44.272Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;运行时类型信息使得你可以在程序运行时发现和使用类型信息&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>String杂烩</title>
+    <link href="http://yoursite.com/2020/01/13/String%E6%9D%82%E7%83%A9/"/>
+    <id>http://yoursite.com/2020/01/13/String%E6%9D%82%E7%83%A9/</id>
+    <published>2020-01-13T05:56:24.000Z</published>
+    <updated>2020-01-13T05:58:58.999Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;String对象是不可变的。由于string的只读特性，使得在string的操作上有一定的性能问题。比如对于string的重载操作符”+”的使用会产生一大堆的中间件对象。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一切皆对象(3)</title>
+    <link href="http://yoursite.com/2020/01/13/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(3)/"/>
+    <id>http://yoursite.com/2020/01/13/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(3)/</id>
+    <published>2020-01-13T03:55:47.000Z</published>
+    <updated>2020-01-13T03:57:25.911Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;持有对象&quot;&gt;&lt;a href=&quot;#持有对象&quot; class=&quot;headerlink&quot; title=&quot;持有对象&quot;&gt;&lt;/a&gt;持有对象&lt;/h2&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>进程与线程</title>
