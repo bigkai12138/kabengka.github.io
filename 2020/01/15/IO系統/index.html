@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="I&#x2F;O杂记File既可以代表一个特定文件的名称，又能代表一个目录下一组文件的名称。如果值的是文件集，可以使用list()方法返回一个字符数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IO系統">
+<meta property="og:url" content="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/index.html">
+<meta property="og:site_name" content="张三的歌">
+<meta property="og:description" content="I&#x2F;O杂记File既可以代表一个特定文件的名称，又能代表一个目录下一组文件的名称。如果值的是文件集，可以使用list()方法返回一个字符数组">
+<meta property="og:image" content="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/2.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/3.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/4.png">
+<meta property="article:published_time" content="2020-01-15T01:42:50.000Z">
+<meta property="article:modified_time" content="2020-01-15T02:47:34.336Z">
+<meta property="article:author" content="张三">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/1.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>IO系統 | 张三的歌</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="张三的歌" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张三的歌</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">学习是一种信仰</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-about"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-categories"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archives"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/15/IO%E7%B3%BB%E7%B5%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="张三">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张三的歌">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IO系統
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-15 09:42:50 / 修改时间：10:47:34" itemprop="dateCreated datePublished" datetime="2020-01-15T09:42:50+08:00">2020-01-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="I-O杂记"><a href="#I-O杂记" class="headerlink" title="I/O杂记"></a>I/O杂记</h2><p><strong>File既可以代表一个特定文件的名称，又能代表一个目录下一组文件的名称。如果值的是文件集，可以使用list()方法返回一个字符数组</strong></p>
+<a id="more"></a>
+<p><code>File</code>类不仅仅只代表存在的文件或目录，也可以用<code>File</code>对象来创建新的目录或尚不存在的整个目录路径，还可以通过<code>File</code>对象查看文件的特性，如大小、最后修改日期、是否可读等等。</p>
+<blockquote>
+<p> 编程语言的 I/O 类库中常使用流这个抽象概念，它代表任何有能力产出数据的数据源对象或者是有能力接收数据的接收端对象。“流”屏蔽了实际的 I/O 设备中处理数据的细节。</p>
+</blockquote>
+<p>输入输出流类简介图：<img src="/2020/01/15/IO%E7%B3%BB%E7%B5%B1/1.jpg" alt="输入输出流类型简介图"></p>
+<p><strong>我们必须创建许多类——“核心” I/O 类型加上所有的装饰器，才能得到我们所希望的单个 I/O 对象</strong>。</p>
+<p>在 java1.1 中，inputstream和outputstream在以面向字节形式的I/O中仍可以提供有价值的信息。reader和writer提供兼容Unicode与面向字符的功能（设计reader和writer继承层次结构主要是为了国际化）。<code>InputStreamReader</code>可以把<code>InputStream</code>转换为<code>Reader</code>，而<code>OutputStreamWriter</code>可以把<code>OutputStream</code>转换为<code>Writer</code></p>
+<blockquote>
+<p>RandomAccessFile:适用于由大小已知的记录组成的文件，所以我们可以使用<code>seek()</code>将记录从一处转移到另一处，然后读取或者修改记录。文件中记录的大小并不一定都相同，只要我们能够确定那些记录有多大以及它们在文件中的位置即可。除了在任何情况下，RandomAccessFile都是自我独立的，直接从Object派生而来。从本质上来说，RandomAccessFile的工作方式类似于把DataInputStream和DataOutputStream组合起来使用，还添加了一些方法。此外，只有RandomAccessFile支持搜寻方法，并且只适用于文件（bufferedInputStream能允许标注【mark()】位置【其值存储于内部某个简单变量内】和重新设定位置【reset ()】但这些功能很有限，不是经常使用）。在 JDK 1.4 中，RandomAccessFile的大多数功能由nio存储映射文件所取代。</p>
+</blockquote>
+<p><strong>IO使用注意：</strong></p>
+<ol>
+<li>缓冲输入文件——使用以String或File对象作为文件名的FileInputReader。为了提高速度，对文件进行缓冲，将所产生的引用传给一个BufferedReader构造器。</li>
+<li>格式化内存输入——要读取格式化数据，可以使用DataInputStream，它是面向字节的IO类，因此必须用InputStream而不是Reader。</li>
+<li>基本文件输出——FileWriter对象可以向文件写入数据。通常会用BufferedWriter将其包装起来用以缓冲输出。</li>
+<li>存储和恢复数据——PrintWriter可以对数据进行格式化，以便阅读。但是为了输出可供另一个流恢复的数据，需要用DataOutputStream写入数据，并用DataInputStream恢复数据。（DataOutputStream和DataInputStream是面向字节的，因此要使用InputStream和OutputStream）</li>
+</ol>
+<h2 id="标准I-O"><a href="#标准I-O" class="headerlink" title="标准I/O"></a>标准I/O</h2><p>标准I/O：程序的所有输入都可以来自于标准输入，所有输出也可以发送到标准输出，所有的错误信息都可以发送到标准错误。</p>
+<p><strong>从标准输入中读取</strong>：</p>
+<ul>
+<li>标准输入：System.in未加工的InputStream</li>
+<li>标准输出：System.out PrintStream对象</li>
+<li>标准错误：System.err PrintStream对象</li>
+</ul>
+<p>通常会用readLine()一次一行读取输入，将System.in包装城BufferedReader来使用，这要求必须用InputStreamReader把Sytem.in转换成Reader。System,in通常应该对它进行缓冲。</p>
+<p><strong>标准I/O重定向</strong>：</p>
+<ul>
+<li>setIn(InputStream)</li>
+<li>setOut(PrintStream)</li>
+<li>setErr(PrintStream)</li>
+</ul>
+<h2 id="新IO"><a href="#新IO" class="headerlink" title="新IO"></a>新IO</h2><p>JDK 1.4 的java.nio.*包中引入了新的的 Java I/O 类库，其目的在于提高速度（<code>实际上，旧的 I/O 包已经使用nio重新实现过，以便充分利用这种速度提高，因此，即使我们不显式地用nio编写代码，也能从中受益。</code>）速度的提高来自于使用的结构更接近于操作系统执行 I/O 的方式：通道和缓冲器。通道要么从缓冲器获得数据，要么向缓冲器发送数据。唯一直接与通道交互的缓冲器是ByteBuffer，一个可以存储未加工字节的缓冲器 。</p>
+<blockquote>
+<p>ByteBuffer:通过告知分配多少存储空间来创建一个<code>ByteBuffer</code>对象，并且还有一个方法选择集，用于以原始的字节形式或基本数据类型输出和读取数据。但是，没办法输出或读取对象，即使是字符串对象也不行。这种处理虽然低级，但却正好，因为这是大多数操作系统中更有效的映射方式</p>
+</blockquote>
+<p><em><code>Reader</code>和<code>Writer</code>这种字符模式类不能用于产生通道；但是<code>java.nio.channels.Channels</code>类提供了实用方法，用以在通道中产生<code>Reader</code>和<code>Writer</code>。</em></p>
+<p>java.nio.CharBuffer有一个toString方法：返回一个包含缓冲器中所有字符的字符串。</p>
+<p>尽管ByteBuffer只能保存字节类型数据，但是它可以从其所容纳的字节中产生出各种不同的基本类型值的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xx.asXxxBuffer()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>视图缓冲器</strong>：视图缓冲器（view buffer）可以让我们通过某个特定的基本数据类型的视窗查看其底层的ByteBuffer。对视图的任何修改都会映射成为对ByteBuffer中数据的修改。例如：</p>
+<p>先用重载后的put()方法存储一个整数数组。接着get()和put()方法调用直接访问底层ByteBuffer中的某个整数位置。注意，这些通过直接与ByteBuffer对话访问绝对位置的方式也同样适用于基本类型。</p>
+<p>一旦底层的ByteBuffer通过视图缓冲器填满了整数或其他基本类型时，就可以直接被写到通道中。正像从通道中读取那样容易，然后使用视图缓冲器可以把任何数据都转化为某一特定的基本类型。</p>
+</blockquote>
+<p><strong>nio之间的关系</strong>:<img src="/2020/01/15/IO%E7%B3%BB%E7%B5%B1/2.png" alt="nio之间的关系"></p>
+<p><strong>缓冲器的细节:</strong>Buffer有数据和可以高效地访问及操作这些数据的四个索引组成，mark（标记）、position（位置）、limit（界限）和capacity（容量）。<img src="/2020/01/15/IO%E7%B3%BB%E7%B5%B1/3.png" alt="缓冲器的细节"></p>
+<p><strong>内存映射文件(MemoryMappedFile)</strong>:内存映射文件允许创建和修改因为太大而不能放入内存的文件。可以假定整个文件都放在内存中，而且可以完全把它当作非常大的数组访问。MappedByteBuffer由ByteBuffer继承而来，因此它具有ByteBuffer的所有方法。底层操作系统的文件映射工具是用来最大化地提高性能的。</p>
+<h2 id="I-O附属操作"><a href="#I-O附属操作" class="headerlink" title="I/O附属操作"></a>I/O附属操作</h2><p><strong>文件加锁机制</strong>：允许同步访问某个做为共享资源的文件。文件锁对其他的操作系统进程是可见的，因为Java的文件加锁直接映射到本地操作系统的加锁工具。</p>
+<p>通过对FileChannel调用tryLock()或lock()，就可以获得整个文件的FileLock。SocketChannel、DatagramChannel和ServerSocketChannel不需要加锁，因为它们是从单进程实体继承而来，通常不在两个进程之间共享socket。tryLock()是非阻塞式的，它设法获取锁，如果不能得到（当其他一些进程已经持有相同的锁，并且不共享时），它将直接从方法调用返回。lock()是阻塞式的，它要阻塞进程直至锁可以获得，或调用lock()的线程中断，或调用lock()的通道关闭。使用FileLock.release()可以释放锁，<code>也可以对文件部分上锁</code>。</p>
+<p><strong>压缩</strong>：Java IO类库中的类支持读写压缩格式的数据流。 Java IO类库中的类支持读写压缩格式的数据流。<img src="/2020/01/15/IO%E7%B3%BB%E7%B5%B1/4.png" alt="IO压缩类"></p>
+<blockquote>
+<p>如果相对单一数据流进行压缩，GZIP接口是比较合适的选择。</p>
+<ul>
+<li>压缩：BufferedOutputStream &lt;- GZIPOutputStream &lt;- FileOutputStream</li>
+<li>解压：BufferedReader &lt;- InputStreamReader &lt;- GZIPInputStream &lt;- FileInputStream</li>
+</ul>
+<hr>
+<p>支持Zip格式的Java库更加全面，它显示了用Checksum类来计算和校验文件的校验和的方法。一共有两种Checksum类型：Adler32（快）和CRC32（慢，准确）。</p>
+<ul>
+<li>压缩：BufferedOutputStream &lt;- ZIPOutputStream &lt;- CheckedOutputStream &lt;- FileOutputStream</li>
+<li>解压: BufferedReader &lt;- InputStreamReader &lt;- ZIPInputStream &lt;- CheckedInputStream &lt;- FileInputStream</li>
+</ul>
+<p>对于每一个要加入压缩档案的文件，都必须调用putNextEntry()，并将其传递给一个ZipEntry对象。ZipEntry包含一个功能很广泛的接口，允许获取和设置Zip文件内该特定项上所有可利用的数据：名字、压缩的和未压缩的文件大小、日期、CRC检验和、额外字段数据、注释、压缩方法以及他是否是一个目录入口等等。</p>
+</blockquote>
+<p>ip格式也被应用于JAR(Java ARchive，Java档案文件)文件格式中。将一组文件压缩到单个压缩文件中。同Java中任何其他东西一样，JAR也是跨平台的。由于采用压缩技术，可以使传输时间更短，只需向服务器发送一次请求即可。</p>
+<p><strong>对象序列化</strong>：将那些实现了Serializable接口的对象转换成一个字节序列，并能够在以后将这个字节序列完全恢复为原来的对象。利用序列化可以实现轻量级持久性(lightweight persistence)。“持久性”意味着一个对象的生存周期并不取决于程序是否正在执行;它可以生存于程序的调用之间。</p>
+<p>对象序列化的概念加入到语言中是为了支持两种主要特性。</p>
+<ol>
+<li>一是Java的远程方法调用(Remote Method Invocation, RMI)，它使存活于其他计算机上的对象使用起来就像是存活于本机上一样。</li>
+<li>对Java Beans来说，对象的序列化也是必需的。使用一个Bean时，一般情况下是在设计阶段对它的状态信息进行配置。这种状态信息必须保存下来，并在程序启动时进行后期恢复，这种具体工作就是由对象序列化完成的。</li>
+</ol>
+<blockquote>
+<p>序列化一个对象的步骤：</p>
+<ol>
+<li>创建某些OutputStream对象</li>
+<li>将其封装在一个ObjectOutputStream对象内。</li>
+<li>调用writeObject0即可将对象序列化，并将其发送给OutputStream(对象化序列是基于字节的，因要使用InputStream和OutputStream继承层次结构)。</li>
+<li>一个序列还原为一个对象，需要将个InputStream封装在ObjectmputStream内，然后调用readObject()。我们最后获得的是一个引用，它指向一个向上转型的Object,所以必须向下转型才能直接设置它们。</li>
+</ol>
+<p><strong>如果希望部分序列化或子对象不必序列化。可通过Exterbalizable接口代替Serializable。Exterbalizable接口继承了Serializable，同时增添了两个方法：writeExternal()和readExternal()。这两个方法会在序列化和反序列化还原的过程中被自动调用。</strong></p>
+<p>对于Serializable对象来说，对象完全以它存储的二进制位为基础进行构造，而不调用构造器。<br>对于Externalizable对象，所有的普通的默认构造器都会被调用（包括字段定义时的初始化），然后调用readeExternal（）。必须注意：所有的默认构造器都被调用之后，才能使Externalizable对象产生正确的行为。</p>
+<p>Externalizable的替代方法：</p>
+<ul>
+<li>可以实现Serializable接口，并添加（非覆盖或实现）名为writeObject()和readObject()方法。这样一旦对象被序列化或者被反序列化还原，就会自动地分别调用这个方法。也就是说，只要提供这两个方法，就会使用它们而不是默认的序列化机制。</li>
+<li>可在自己的writeObject()内部，调用defaultWriteObject()来选择执行默认的writeObject()。</li>
+</ul>
+</blockquote>
+<p>transient（瞬时）关键字：特定子对象不想让java的序列化自动保存与恢复，可以使用transient逐个字段地关闭序列化。</p>
+<p><strong>Preferences</strong>： API与对象序列化相比，前者与对象持久性更密切。因为它可以自动存储和读取信息。不过，它只能用于小的受限的数据集合——只能存储基本数据和字符串，并且每个字符串的存储长度不能超过8K。顾名思义，Preferences API用于存储和读取用户的偏好preferences以及程序配置项的设置。<br><strong>XML</strong>：对象序列化的一个重要限制是它只是Java的解决方案：只有Java程序才能反序列化这种对象。一种更具有互操作性的解决方案是将数据转换为XML格式，这样可以使其被各种各样的平台和语言使用。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/14/%E5%AE%B9%E5%99%A8/" rel="prev" title="容器">
+      <i class="fa fa-chevron-left"></i> 容器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/15/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="next" title="输入输出">
+      输入输出 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O杂记"><span class="nav-text">I&#x2F;O杂记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准I-O"><span class="nav-text">标准I&#x2F;O</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新IO"><span class="nav-text">新IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O附属操作"><span class="nav-text">I&#x2F;O附属操作</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张三"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">张三</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张三</span>
+</div>
+
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
