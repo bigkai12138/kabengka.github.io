@@ -46,19 +46,21 @@
   };
 </script>
 
-  <meta name="description" content="抽象面向对象程序设计(Object-oriented Programming   OOP)">
+  <meta name="description" content="虚拟化的主要实现是虚拟机监控程序（VMM：虚拟机管理程序）在同一物理硬件上创建有多态虚拟机的假象">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OOP">
-<meta property="og:url" content="http://yoursite.com/2020/01/05/OOP/index.html">
+<meta property="og:title" content="虚拟化和云">
+<meta property="og:url" content="http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/index.html">
 <meta property="og:site_name" content="张三的歌">
-<meta property="og:description" content="抽象面向对象程序设计(Object-oriented Programming   OOP)">
-<meta property="article:published_time" content="2020-01-05T02:55:08.000Z">
-<meta property="article:modified_time" content="2020-01-12T03:09:30.809Z">
+<meta property="og:description" content="虚拟化的主要实现是虚拟机监控程序（VMM：虚拟机管理程序）在同一物理硬件上创建有多态虚拟机的假象">
+<meta property="og:image" content="http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/1.png">
+<meta property="article:published_time" content="2020-01-16T06:03:12.000Z">
+<meta property="article:modified_time" content="2020-01-16T06:18:17.532Z">
 <meta property="article:author" content="张三">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="操作系統">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/1.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/01/05/OOP/">
+<link rel="canonical" href="http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/">
 
 
 <script id="page-configurations">
@@ -70,7 +72,7 @@
   };
 </script>
 
-  <title>OOP | 张三的歌</title>
+  <title>虚拟化和云 | 张三的歌</title>
   
 
 
@@ -186,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/OOP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -199,7 +201,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          OOP
+          虚拟化和云
         </h1>
 
         <div class="post-meta">
@@ -208,16 +210,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-01-05 10:55:08" itemprop="dateCreated datePublished" datetime="2020-01-05T10:55:08+08:00">2020-01-05</time>
+              <time title="创建时间：2020-01-16 14:03:12 / 修改时间：14:18:17" itemprop="dateCreated datePublished" datetime="2020-01-16T14:03:12+08:00">2020-01-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-12 11:09:30" itemprop="dateModified" datetime="2020-01-12T11:09:30+08:00">2020-01-12</time>
-              </span>
 
           
 
@@ -230,56 +226,87 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>面向对象程序设计(Object-oriented Programming   OOP)</p>
+        <p><strong>虚拟化的主要实现是虚拟机监控程序（VMM：虚拟机管理程序）在同一物理硬件上创建有多态虚拟机的假象</strong></p>
 <a id="more"></a>
-<p>解空间（指对问题建模的地方，比如计算机）<br>问题空间（问题存在的地方，比如一个业务）</p>
-<p>两种建模方式</p>
+<h2 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h2><p>虚拟机管理程序需要在以下三个维度上有良好的表现：</p>
 <ol>
-<li>程序员必须建立在机器模型和实际待解决问题的模型之间的关联（使得程序难以编写，维护代价高昂）</li>
-<li>只针对待解问题的建模（只能用于解决特定类型的问题）</li>
+<li>安全性：虚拟机管理程序应完全掌控虚拟资源。</li>
+<li>保真性：程序在虚拟机上执行的行为应与在裸机上相同。</li>
+<li>高效性：虚拟机中运行的大部分代码应不受虚拟机管理程序的干涉。</li>
 </ol>
-<p>将问题空间的元素及其在解空间中的表示称为对象。这种思想的实质是：程序可以通过添加新类型的对象使自身适用于某个特定的问题。</p>
-<p>Java所基于的语言之一的 smalltalk 语言（第一个成功的面向对象的语言，第一个面向对象的语言是 simula-67）的五大基本特性</p>
-<ol>
-<li>万物皆为对象</li>
-<li>程序是对象的集合，通过 发送消息来告知彼此要做的</li>
-<li>每个对象都有自己的由其他对象所构成的存储——可以创建包含现有对象包的方式来创建新类型对象</li>
-<li>每个对象都有其类型——每个对象都是某个类的一个实例，每个类最重要的区别于其他类的特性就是可以发送什么样的消息给它</li>
-<li>某一特定类型的所有对象都可以接收同样的消息——这种可替代性是OOP中最强有力的概念之一</li>
-</ol>
-<p>Booch 对对象提出了一个更加简洁的描述：对象具有状态、行为和标识。这意味着每一个对象都可以拥有内部数（它们给出了该对象的状态）和方法（它们产生行为），并且每一个对象都可以唯一地与其他对象区别开来，具体来说，就是每一个对象在内存中都有一个唯一的地址。</p>
-<p>将开发人员按照角色分为类创建者（创建数据类型的程序员）和客户端程序员（在应用中使用数据类型的类消费者）。访问控制的第一个存在原因就是让客户端程序员无法触及他们不该触及的部分，第二个存在原因就是允许库设计者可以改变类内部的工作方式而不用担心会影响到客户端程序员</p>
-<p><strong>java的访问权限控制</strong></p>
+<p><strong>敏感指令</strong>：进行 I/O 操作或修改 MMU 设置的指令。<br><strong>特权指令</strong>：在用户态执行会导致陷入。<br>机器可虚拟化的一个必要条件是：<strong>敏感指令为特权指令的子集</strong>。简单来说，如果用户态想要做不应该在用户态做的事情，硬件必须陷入。</p>
+<p><strong>半虚拟化</strong>：半虚拟化的目标不是呈现出一个与底层硬件一样的虚拟机，因而区别于全虚拟化。半虚拟化提供一层类似物理机器的软件接口，显式暴露出自身是一个虚拟化的环境。</p>
+<blockquote>
+<p>如何实现虚拟化？<br>进行操作系统虚拟化，通常要对 CPU、内存、IO经行虚拟化。</p>
+<p>客户机内核的敏感指令被替换为对模拟这些指令的例程的调用。真实硬件不会直接执行客户操作系统中的敏感指令。这些敏感指令被转为对虚拟机管理程序的调用，虚拟机管理程序模拟了这些指令的功能。</p>
+<p>二进制翻译：虚拟机管理程序在运行中改写了部分代码，将有问题的指令替换成了安全的指令序列，模拟原指令的功能。由于进行了改写操作，因此可以替换掉不属于特权指令的敏感指令。其他的指令可以直接执行。（例如，一条不安全的 I/O 指令会被替换成一个陷入操作，经过安全性检查之后，执行等价的指令并返回结果）</p>
+<p>CPU：通常使用时间片、多核的方法达到对CPU的分割；<br>内存：内存是CPU可以进行直接寻址的存储空间，通常使用分段、分页的手段达到逻辑分割；<br>IO：即输入\输出，以网卡、磁盘为例：<br>磁盘：采用磁盘映像文件的方式实现分割，通常采用Spare格式（稀疏格式：牺牲性能，虚拟化超出本身的内存空间）<br>网卡：通过软件的方式，获得虚拟化网卡。</p>
+</blockquote>
+<p>虚拟机的通讯方式：<br>桥接模式：虚拟机之间通过物理交换机进行彼此通讯（或者与外网通讯），从传输速率来说比较慢<br>主机模式：创建虚拟化交换机，仅实现虚拟机之间的通讯。<br>NAT模式：通过NAT技术（网络地址转换技术）将虚拟交换机与物理虚拟机连接，既可以实现虚拟机之间的快速通讯，也能与外网进行通讯。</p>
+<p><strong>第一类和第二类虚拟机管理程序</strong>：</p>
+<p>第一类虚拟机和第二类虚拟机的区别：前者运行在裸机上 ，后者依赖于底层操作系统。</p>
+<p><img src="/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/1.png" alt="第一类和第二类虚拟机管理程序"></p>
 <table>
 <thead>
 <tr>
-<th>public</th>
-<th>private</th>
-<th>protected</th>
-<th>包访问权限</th>
+<th>虚拟化方式</th>
+<th>第一类虚拟机管理程序</th>
+<th>第二类虚拟机管理程序</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>任何人都可访问</td>
-<td>只有类型创建者和类型的内部方法可以访问</td>
-<td>与private相似，继承的类可以访问protected修饰的元素，不可以访问private成员</td>
-<td>类可以访问同一个包中其他类的成员</td>
+<td>无硬件支持</td>
+<td>ESX Server 1.0</td>
+<td>VMware Workstation1</td>
+</tr>
+<tr>
+<td>半虚拟化</td>
+<td>Xen 1.0</td>
+<td></td>
+</tr>
+<tr>
+<td>有硬件支持</td>
+<td>vSphere，Xen，Hyper-V</td>
+<td>VMware Fusion，KVM，Parallels</td>
+</tr>
+<tr>
+<td>进程虚拟化</td>
+<td></td>
+<td>Wine</td>
 </tr>
 </tbody></table>
-<p>在使用现有的类合成新的诶，这种概念被称为组合，如果这种组合是动态发生的，那么通常被称为聚合</p>
-<p>当继承现有类型时，也就创建了新的类型。这个新的类型不仅包括现有类型的所有成员（尽管private成员被隐藏了，并且不可访问），而且更重要的是它复制了基类的接口。也就是说，所有可以发送给基类对象的消息同时也可以发送给导出类对象。由于通过发送给类的消息的类型可知类的类型，所以这也就意味着导出类与基类具有相同的类型。</p>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>is-a 关系与 is-like-a 关系</p>
-<p>继承只覆盖基类的方法，就意味着导出类和基类是完全相同的类型，因为它们具有完全相同的接口。结果可以用一个导出类对象来完全替代一个基类对象。这可以被视为纯碎替代，通常称之为替代原则。将这种情况下基类和导出类之间的关系称为is-a关系</p>
-<p>在导出类型中添加新的接口元素，即扩展了接口。这种情况下基类和导出类之间关系为is-like-a关系</p>
-<p><em>单根继承结构：所有的类最终都继承于单一 的基类。</em></p>
-<p>单根继承结构可以保证所有对象都具备某些功能。同时可以使垃圾回收器的实现变得容易很多，由于所有对象都保证具有其类型信息，因此不会因无法确定对象的类型而陷入僵局，这对于系统级的操作（如异常处理）显得尤为重要。</p>
-<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>​    一个非面向对象编程的编译器产生的函数调用会引起所谓的前缀绑定。这么做意味着编译器将产生一个具体函数名字的调用，而运行时将这个调用解析到将要被执行的代码的绝对地址。然而在OOP中，程序直到运行 时候才能够确定代码的地址，所以当消息发送到一个泛化对象时，必须采用其它的机制</p>
-<p>​    为了解决这个问题，面向对象程序设计语言采用了后期绑定的概念。当向对象发送消息时，被调用的代码直到运行时才能确定。编译器确保被调用方法的存在 ，并对调用参数和返回值进行类型检查（无法提供此类保证的语言被称为是弱类型的），但是并不知道被执行的确切的代码。</p>
-<p>​    为了执行后期绑定，java 使用一小段特殊的代码来替代绝对地址调用。这段代码使用在对象中存储的信息来计算方法体的地址。这样，根据这一小段代码的内容，每一个对象都可以具有不同的行为表现。当一个对象发送消息时，该对象就能够知道对这条消息做些什么。</p>
-<h4 id="参数化类型"><a href="#参数化类型" class="headerlink" title="参数化类型"></a>参数化类型</h4><p>在 java5 之前，容器存储的对象都只具有java中的通用类型：object（单根继承结构意味着所有对象都是object的）。但是因为将对象引用置入容器时，必须向上转型为object，因此会丢失其身份，当把它取回时需要进行向下转型。但是除非确切地知道要处理的对象的类型 ，否则向下转型是不安全的，同时向下转型和运行时的类型检查需要额外的程序运行时间。因此为了更好地解决问题，java5之后提出了参数化类型机制（即泛型）</p>
-<h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><p>异常处理将错误直接置于编程语言或者操作系统中，异常是一种对象，从出错点被抛出，并被专门设计用来处理特定类型错误的相应的异常处理器所捕获。异常处理就像是与程序正常执行路径并行的、在错误发生时执行的另一条路径。</p>
-<h3 id="javaweb"><a href="#javaweb" class="headerlink" title="javaweb"></a>javaweb</h3><h4 id="客户-服务器技术"><a href="#客户-服务器技术" class="headerlink" title="客户/服务器技术"></a>客户/服务器技术</h4><p>客户/服务器技术的核心思想是：系统具有一个中央信息存储池，用来存储某种数据（通常存在于数据库中），系统可以根据需要将它分发给某些人或机器集群。客户/服务器概念的关键在于信息存储池的位置位于中央。</p>
-<p>信息存储池、用于分发信息的软件和信息与软件所驻留的机器或集群被总称为服务器。驻留在用户机器上的软件与服务器进行通信，以获取信息、处理信息，然后将它们显示在被称为客户机的用户机器上。</p>
+<h2 id="云"><a href="#云" class="headerlink" title="云"></a>云</h2><p><strong>云的五条必要特征</strong>:</p>
+<ol>
+<li>按需自助服务</li>
+<li>普适的网络访问</li>
+<li>资源池</li>
+<li>快速可伸缩</li>
+<li>服务可计算</li>
+</ol>
+<p>云即服务：云的功能是提供一个用户可以直接访问并任意使用的虚拟机。因而，同一个云中可能运行着不同的操作系统。这种云称作<strong>基础设施即服务</strong>。</p>
+<ul>
+<li><p>基础设置即服务（IAAS）</p>
+<p>提供给消费者的服务是对所有计算基础设施的利用，包括处理CPU、内存、存储、网络和其它基本的计算资源，用户能够部署和运行任意软件，包括操作系统和应用程序。提供给消费者的服务是对所有计算基础设施的利用，包括处理CPU、内存、存储、网络和其它基本的计算资源，用户能够部署和运行任意软件，包括操作系统和应用程序。</p>
+</li>
+<li><p>平台即服务（PAAS）</p>
+<p>提供给消费者的服务是把客户采用提供的开发语言和工具（例如Java，python, .Net等）开发的或收购的应用程序部署到供应商的云计算基础设施上去。</p>
+</li>
+<li><p>软件即服务（SAAS）</p>
+<p>提供给客户的服务是运营商运行在云计算基础设施上的应用程序，用户可以在各种设备上通过客户端界面访问，如浏览器。消费者不需要管理或控制任何云计算基础设施，包括网络、服务器、操作系统、存储等等；</p>
+</li>
+<li><p>网络即服务（NAAS）</p>
+<p>通过网络虚拟化，安全设备虚拟化，SDN等网络技术，为各种用户提供不同的虚拟化网络服务。</p>
+</li>
+<li><p>通讯即服务（CAAS）</p>
+<p>是将传统电信的能力如消息、语音、视频、会议、通信协同等封装成API(Application Programming Interface，应用软件编程接口)或者SDK(Software Development Kit，软件开发工具包)通过互联网对外开放，提供给第三方使用，将电信能力真正作为服务对外提供。</p>
+</li>
+<li><p>物联网即服务（MAAS）</p>
+<p>伴随着物联网产生，物联网常见的两种业务形式就是MAI与MaaS，因此MaaS属于物联网业务形式的一种。</p>
+</li>
+<li><p>数据即服务（DAAS）</p>
+<p>云端公司负责建立全部的IT环境，收集用户需要的基础数据并且做数据分析，最后对分析结构或者算法提供编程接口，让数据成为服务。</p>
+</li>
+</ul>
 
     </div>
 
@@ -289,7 +316,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%B5%B1/" rel="tag"># 操作系統</a>
           </div>
 
         
@@ -297,10 +324,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/" rel="next" title="一切皆对象(1)">
-      一切皆对象(1) <i class="fa fa-chevron-right"></i>
+    <a href="/2020/01/16/%E6%B3%A8%E8%A7%A3/" rel="prev" title="注解">
+      <i class="fa fa-chevron-left"></i> 注解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/16/%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BA%E7%B3%BB%E7%BB%9F/" rel="next" title="多处理机系统">
+      多处理机系统 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -361,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象"><span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数化类型"><span class="nav-text">参数化类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常处理"><span class="nav-text">异常处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#javaweb"><span class="nav-text">javaweb</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#客户-服务器技术"><span class="nav-text">客户&#x2F;服务器技术</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机"><span class="nav-text">虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#云"><span class="nav-text">云</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

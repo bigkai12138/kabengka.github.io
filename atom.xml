@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-16T03:08:13.190Z</updated>
+  <updated>2020-01-16T08:42:39.160Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>多处理机系统</title>
+    <link href="http://yoursite.com/2020/01/16/%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BA%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://yoursite.com/2020/01/16/%E5%A4%9A%E5%A4%84%E7%90%86%E6%9C%BA%E7%B3%BB%E7%BB%9F/</id>
+    <published>2020-01-16T06:20:18.000Z</published>
+    <updated>2020-01-16T08:42:39.160Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;多处理机系统模型主要有三类：分别是共享存储器多处理机、消息传递多计算机、广域分布式系统。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="操作系统" scheme="http://yoursite.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>虚拟化和云</title>
+    <link href="http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/"/>
+    <id>http://yoursite.com/2020/01/16/%E8%99%9A%E6%8B%9F%E5%8C%96%E5%92%8C%E4%BA%91/</id>
+    <published>2020-01-16T06:03:12.000Z</published>
+    <updated>2020-01-16T06:18:17.532Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;虚拟化的主要实现是虚拟机监控程序（VMM：虚拟机管理程序）在同一物理硬件上创建有多态虚拟机的假象&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="操作系統" scheme="http://yoursite.com/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%B5%B1/"/>
+    
+  </entry>
   
   <entry>
     <title>注解</title>
