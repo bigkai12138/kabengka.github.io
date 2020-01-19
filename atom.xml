@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-18T08:13:25.998Z</updated>
+  <updated>2020-01-19T08:53:16.779Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redis深度历险(深入篇)</title>
+    <link href="http://yoursite.com/2020/01/19/redis%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9(%E6%B7%B1%E5%85%A5%E7%AF%87)/"/>
+    <id>http://yoursite.com/2020/01/19/redis%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9(%E6%B7%B1%E5%85%A5%E7%AF%87)/</id>
+    <published>2020-01-19T06:33:16.000Z</published>
+    <updated>2020-01-19T08:53:16.779Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;redis是一个单线程程序。&lt;/strong&gt;对于处理并发客户端连接，redis使用了非阻塞IO，事件轮询，多路复用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="redis" scheme="http://yoursite.com/tags/redis/"/>
+    
+  </entry>
   
   <entry>
     <title>redis深度历险(基础篇)</title>
