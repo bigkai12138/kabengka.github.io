@@ -47,31 +47,26 @@
   };
 </script>
 
-  <meta name="description" content="抽象面向对象程序设计(Object-oriented Programming   OOP)">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OOP">
-<meta property="og:url" content="http://yoursite.com/2020/01/05/OOP/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="张三的歌">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="张三的歌">
-<meta property="og:description" content="抽象面向对象程序设计(Object-oriented Programming   OOP)">
-<meta property="article:published_time" content="2020-01-05T02:55:08.000Z">
-<meta property="article:modified_time" content="2020-01-12T03:09:30.809Z">
 <meta property="article:author" content="张三">
-<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/01/05/OOP/">
+<link rel="canonical" href="http://yoursite.com/page/5/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true
+    isHome: true,
+    isPost: false
   };
 </script>
 
-  <title>OOP | 张三的歌</title>
+  <title>张三的歌</title>
   
 
 
@@ -183,10 +178,82 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="张三">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张三的歌">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/" class="post-title-link" itemprop="url">一切皆对象(1)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-07 11:03:36" itemprop="dateCreated datePublished" datetime="2020-01-07T11:03:36+08:00">2020-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-12 15:05:17" itemprop="dateModified" datetime="2020-01-12T15:05:17+08:00">2020-01-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
+          <p>在 java中一切都是对象，操作的标识符便是对象的一个“引用”。例：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/05/OOP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -200,7 +267,8 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          OOP
+          
+            <a href="/2020/01/05/OOP/" class="post-title-link" itemprop="url">OOP</a>
         </h1>
 
         <div class="post-meta">
@@ -231,87 +299,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>面向对象程序设计(Object-oriented Programming   OOP)</p>
-<a id="more"></a>
-<p>解空间（指对问题建模的地方，比如计算机）<br>问题空间（问题存在的地方，比如一个业务）</p>
-<p>两种建模方式</p>
-<ol>
-<li>程序员必须建立在机器模型和实际待解决问题的模型之间的关联（使得程序难以编写，维护代价高昂）</li>
-<li>只针对待解问题的建模（只能用于解决特定类型的问题）</li>
-</ol>
-<p>将问题空间的元素及其在解空间中的表示称为对象。这种思想的实质是：程序可以通过添加新类型的对象使自身适用于某个特定的问题。</p>
-<p>Java所基于的语言之一的 smalltalk 语言（第一个成功的面向对象的语言，第一个面向对象的语言是 simula-67）的五大基本特性</p>
-<ol>
-<li>万物皆为对象</li>
-<li>程序是对象的集合，通过 发送消息来告知彼此要做的</li>
-<li>每个对象都有自己的由其他对象所构成的存储——可以创建包含现有对象包的方式来创建新类型对象</li>
-<li>每个对象都有其类型——每个对象都是某个类的一个实例，每个类最重要的区别于其他类的特性就是可以发送什么样的消息给它</li>
-<li>某一特定类型的所有对象都可以接收同样的消息——这种可替代性是OOP中最强有力的概念之一</li>
-</ol>
-<p>Booch 对对象提出了一个更加简洁的描述：对象具有状态、行为和标识。这意味着每一个对象都可以拥有内部数（它们给出了该对象的状态）和方法（它们产生行为），并且每一个对象都可以唯一地与其他对象区别开来，具体来说，就是每一个对象在内存中都有一个唯一的地址。</p>
-<p>将开发人员按照角色分为类创建者（创建数据类型的程序员）和客户端程序员（在应用中使用数据类型的类消费者）。访问控制的第一个存在原因就是让客户端程序员无法触及他们不该触及的部分，第二个存在原因就是允许库设计者可以改变类内部的工作方式而不用担心会影响到客户端程序员</p>
-<p><strong>java的访问权限控制</strong></p>
-<table>
-<thead>
-<tr>
-<th>public</th>
-<th>private</th>
-<th>protected</th>
-<th>包访问权限</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>任何人都可访问</td>
-<td>只有类型创建者和类型的内部方法可以访问</td>
-<td>与private相似，继承的类可以访问protected修饰的元素，不可以访问private成员</td>
-<td>类可以访问同一个包中其他类的成员</td>
-</tr>
-</tbody></table>
-<p>在使用现有的类合成新的诶，这种概念被称为组合，如果这种组合是动态发生的，那么通常被称为聚合</p>
-<p>当继承现有类型时，也就创建了新的类型。这个新的类型不仅包括现有类型的所有成员（尽管private成员被隐藏了，并且不可访问），而且更重要的是它复制了基类的接口。也就是说，所有可以发送给基类对象的消息同时也可以发送给导出类对象。由于通过发送给类的消息的类型可知类的类型，所以这也就意味着导出类与基类具有相同的类型。</p>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>is-a 关系与 is-like-a 关系</p>
-<p>继承只覆盖基类的方法，就意味着导出类和基类是完全相同的类型，因为它们具有完全相同的接口。结果可以用一个导出类对象来完全替代一个基类对象。这可以被视为纯碎替代，通常称之为替代原则。将这种情况下基类和导出类之间的关系称为is-a关系</p>
-<p>在导出类型中添加新的接口元素，即扩展了接口。这种情况下基类和导出类之间关系为is-like-a关系</p>
-<p><em>单根继承结构：所有的类最终都继承于单一 的基类。</em></p>
-<p>单根继承结构可以保证所有对象都具备某些功能。同时可以使垃圾回收器的实现变得容易很多，由于所有对象都保证具有其类型信息，因此不会因无法确定对象的类型而陷入僵局，这对于系统级的操作（如异常处理）显得尤为重要。</p>
-<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><p>​    一个非面向对象编程的编译器产生的函数调用会引起所谓的前缀绑定。这么做意味着编译器将产生一个具体函数名字的调用，而运行时将这个调用解析到将要被执行的代码的绝对地址。然而在OOP中，程序直到运行 时候才能够确定代码的地址，所以当消息发送到一个泛化对象时，必须采用其它的机制</p>
-<p>​    为了解决这个问题，面向对象程序设计语言采用了后期绑定的概念。当向对象发送消息时，被调用的代码直到运行时才能确定。编译器确保被调用方法的存在 ，并对调用参数和返回值进行类型检查（无法提供此类保证的语言被称为是弱类型的），但是并不知道被执行的确切的代码。</p>
-<p>​    为了执行后期绑定，java 使用一小段特殊的代码来替代绝对地址调用。这段代码使用在对象中存储的信息来计算方法体的地址。这样，根据这一小段代码的内容，每一个对象都可以具有不同的行为表现。当一个对象发送消息时，该对象就能够知道对这条消息做些什么。</p>
-<h4 id="参数化类型"><a href="#参数化类型" class="headerlink" title="参数化类型"></a>参数化类型</h4><p>在 java5 之前，容器存储的对象都只具有java中的通用类型：object（单根继承结构意味着所有对象都是object的）。但是因为将对象引用置入容器时，必须向上转型为object，因此会丢失其身份，当把它取回时需要进行向下转型。但是除非确切地知道要处理的对象的类型 ，否则向下转型是不安全的，同时向下转型和运行时的类型检查需要额外的程序运行时间。因此为了更好地解决问题，java5之后提出了参数化类型机制（即泛型）</p>
-<h4 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h4><p>异常处理将错误直接置于编程语言或者操作系统中，异常是一种对象，从出错点被抛出，并被专门设计用来处理特定类型错误的相应的异常处理器所捕获。异常处理就像是与程序正常执行路径并行的、在错误发生时执行的另一条路径。</p>
-<h3 id="javaweb"><a href="#javaweb" class="headerlink" title="javaweb"></a>javaweb</h3><h4 id="客户-服务器技术"><a href="#客户-服务器技术" class="headerlink" title="客户/服务器技术"></a>客户/服务器技术</h4><p>客户/服务器技术的核心思想是：系统具有一个中央信息存储池，用来存储某种数据（通常存在于数据库中），系统可以根据需要将它分发给某些人或机器集群。客户/服务器概念的关键在于信息存储池的位置位于中央。</p>
-<p>信息存储池、用于分发信息的软件和信息与软件所驻留的机器或集群被总称为服务器。驻留在用户机器上的软件与服务器进行通信，以获取信息、处理信息，然后将它们显示在被称为客户机的用户机器上。</p>
-
+          <h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>面向对象程序设计(Object-oriented Programming   OOP)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/05/OOP/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Java/" rel="tag"># Java</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/" rel="next" title="一切皆对象(1)">
-      一切皆对象(1) <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
 
   </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
 
 
           </div>
@@ -362,7 +379,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象"><span class="nav-text">抽象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承"><span class="nav-text">继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数化类型"><span class="nav-text">参数化类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常处理"><span class="nav-text">异常处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#javaweb"><span class="nav-text">javaweb</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#客户-服务器技术"><span class="nav-text">客户&#x2F;服务器技术</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

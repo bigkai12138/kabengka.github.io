@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="go标准库builtin给出了所有内置类型的定义（位于：src&#x2F;builtin&#x2F;builtin.go），关于string的定义如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-string">
+<meta property="og:url" content="http://yoursite.com/2020/01/26/go-string/index.html">
+<meta property="og:site_name" content="张三的歌">
+<meta property="og:description" content="go标准库builtin给出了所有内置类型的定义（位于：src&#x2F;builtin&#x2F;builtin.go），关于string的定义如下：">
+<meta property="article:published_time" content="2020-01-26T03:11:52.000Z">
+<meta property="article:modified_time" content="2020-01-26T03:17:19.471Z">
+<meta property="article:author" content="张三">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/26/go-string/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>go-string | 张三的歌</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="张三的歌" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张三的歌</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">学习是一种信仰</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-about"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-categories"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archives"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/go-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="张三">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张三的歌">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go-string
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-26 11:11:52 / 修改时间：11:17:19" itemprop="dateCreated datePublished" datetime="2020-01-26T11:11:52+08:00">2020-01-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>go标准库builtin给出了所有内置类型的定义（位于：src/builtin/builtin.go），关于string的定义如下</strong>：</p>
+<a id="more"></a>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string is the set of all strings of 8-bit bytes, conventionally but not</span></span><br><span class="line"><span class="comment">// necessarily representing UTF-8-encoded text. A string may be empty, but</span></span><br><span class="line"><span class="comment">// not nil. Values of string type are immutable.</span></span><br><span class="line"><span class="keyword">type</span> <span class="keyword">string</span> <span class="keyword">string</span></span><br></pre></td></tr></table></figure>
+
+<p>string是8位字节的所有字符串的集合，通常不一定表示UTF-8编码的文本。字符串可以为空，但不能为nil。字符串类型的值是不可变的。</p>
+<p><strong>在src/runtime/string.go</strong>定义了string的数据结构 stringStruct：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> stringStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">   str unsafe.Pointer <span class="comment">// 字符串的首地址</span></span><br><span class="line">   <span class="built_in">len</span> <span class="keyword">int</span> <span class="comment">// 字符串的长度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="string操作"><a href="#string操作" class="headerlink" title="string操作"></a>string操作</h2><p><strong>声明一个string</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str <span class="keyword">string</span>;</span><br><span class="line">str = <span class="string">"Hello World"</span></span><br></pre></td></tr></table></figure>
+
+<p>字符串构建过程是先根据字符串构建stringStruct，再转换成string：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//go:nosplit</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">gostringnocopy</span><span class="params">(str *<span class="keyword">byte</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	ss := stringStruct&#123;str: unsafe.Pointer(str), <span class="built_in">len</span>: findnull(str)&#125;</span><br><span class="line">	s := *(*<span class="keyword">string</span>)(unsafe.Pointer(&amp;ss))</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为string实际上是字节的数组，所以可以很容易与字节进行相互转换。</p>
+<p><strong>string转[]byte</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样的强制类型转换实际上是调用底层的copy函数，在大并发的情况下是很耗内存的。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetSliceByString</span><span class="params">(str <span class="keyword">string</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> []<span class="keyword">byte</span>(str)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//因此可以使用unsafe.Point进行指针直接赋值。</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[]byte 转换成 string 是可以直接使用 unsafe.Point(&amp;b) 这样直接转换的。而string 则不可以直接转换成 []byte。 而需要构造把 string 的 str 指针赋值给 array 指针，把string 的 len 赋值给 []byte 的 len 和 cap.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">StrTobytes</span><span class="params">(s <span class="keyword">string</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">	x := (*[<span class="number">2</span>]<span class="keyword">uintptr</span>)(unsafe.Pointer(&amp;s)) <span class="comment">// 获取s的起始地址开始后的两个 uintptr 指针</span></span><br><span class="line">	h := [<span class="number">3</span>]<span class="keyword">uintptr</span>&#123;x[<span class="number">0</span>], x[<span class="number">1</span>], x[<span class="number">1</span>]&#125;  <span class="comment">// 构造三个指针数组</span></span><br><span class="line">	<span class="keyword">return</span> *(*[]<span class="keyword">byte</span>)(unsafe.Pointer(&amp;h))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>[]byte转string</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = []<span class="keyword">byte</span>(<span class="string">"hello world"</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">string</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetStringBySlice</span><span class="params">(s []<span class="keyword">byte</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">string</span>(s)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//可以使用unsafe.Point代替，提高性能。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BytesTostr</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> *(*<span class="keyword">string</span>)(unsafe.Pointer(&amp;b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串拼接</strong>：</p>
+<p>新字符串的内存空间是一次分配完成的，即使有许多字符串需要拼接，性能也能得到保障，性能消耗主要在拷贝数据上。如果字符串数据足够小，则可以将其存储在缓冲区中。一个拼接语句的字符串编译时都会被存放到一个切片中，拼接过程需要遍历两次切片，第一次遍历获取总的字符串长度，据此申请内存，第二次遍历会把字符串逐个拷贝过去。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">str := <span class="string">"hello"</span> + <span class="string">"world"</span> + <span class="string">"!"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">concatstrings</span><span class="params">(buf *tmpBuf, a []<span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">	idx := <span class="number">0</span></span><br><span class="line">	l := <span class="number">0</span></span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i, x := <span class="keyword">range</span> a &#123;</span><br><span class="line">		n := <span class="built_in">len</span>(x)</span><br><span class="line">		<span class="keyword">if</span> n == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> l+n &lt; l &#123;</span><br><span class="line">			throw(<span class="string">"string concatenation too long"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">		l += n</span><br><span class="line">		count++</span><br><span class="line">		idx = i</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> count == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> count == <span class="number">1</span> &amp;&amp; (buf != <span class="literal">nil</span> || !stringDataOnStack(a[idx])) &#123;</span><br><span class="line">		<span class="keyword">return</span> a[idx]</span><br><span class="line">	&#125;</span><br><span class="line">	s, b := rawstringtmp(buf, l) <span class="comment">// 因为string是无法直接修改的，生成指定大小的字符串，返回一个string和切片，二者共享内存空间。</span></span><br><span class="line">	<span class="keyword">for</span> _, x := <span class="keyword">range</span> a &#123;</span><br><span class="line">        <span class="built_in">copy</span>(b, x) <span class="comment">// src/builtin/builtin:func copy(dst, src []Type) int</span></span><br><span class="line">		b = b[<span class="built_in">len</span>(x):]</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>string.rawstring源代码</em></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rawstring</span><span class="params">(size <span class="keyword">int</span>)</span> <span class="params">(s <span class="keyword">string</span>, b []<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">   p := mallocgc(<span class="keyword">uintptr</span>(size), <span class="literal">nil</span>, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">   stringStructOf(&amp;s).str = p</span><br><span class="line">   stringStructOf(&amp;s).<span class="built_in">len</span> = size</span><br><span class="line"></span><br><span class="line">   *(*slice)(unsafe.Pointer(&amp;b)) = slice&#123;p, size, size&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为什么字符串不允许修改？</p>
+<p>​    在Go的实现中，string不包含内存空间，只有一个内存的指针，这样做的好处是string变得非常轻量，可以很方便的进行传递而不用担心内存拷贝。string通常指向字符串字面量，而字符串字面量存储位置是只读段，而不是堆或栈上，所以才有了string不可修改的约定。</p>
+<p>[]byte转换成string一定会拷贝内存吗？</p>
+<p>​    为了性能上的考虑，有时候只是临时需要字符串的场景下，byte切片转换成string时并不会拷贝内存，而是直接返回一个string，这个string的指针(string.str)指向切片的内存。</p>
+<p>比如，编译器会识别如下临时场景：</p>
+<ul>
+<li>使用m[string(b)]来查找map（map是string为key，临时把切片b转成string）；</li>
+<li>字符串拼接，如”&lt;” + “string(b)” + “&gt;”；</li>
+<li>字符串比较：string(b) == “foo”</li>
+</ul>
+<p>string和byte的取舍：</p>
+<p>string 擅长的场景：</p>
+<ul>
+<li>需要字符串比较的场景；</li>
+<li>不需要nil字符串的场景；</li>
+</ul>
+<p>[]byte擅长的场景：</p>
+<ul>
+<li>修改字符串的场景，尤其是修改粒度为1个字节；</li>
+<li>函数返回值，需要用nil表示含义的场景；</li>
+<li>需要切片操作的场景；</li>
+</ul>
+</blockquote>
+<h2 id="strings包"><a href="#strings包" class="headerlink" title="strings包"></a>strings包</h2><p><strong>是否存在某个字符或子串</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 子串substr在s中，返回true</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Contains</span><span class="params">(s, substr <span class="keyword">string</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="comment">// chars中任何一个Unicode代码点在s中，返回true</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ContainsAny</span><span class="params">(s, chars <span class="keyword">string</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="comment">// Unicode代码点r在s中，返回true</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ContainsRune</span><span class="params">(s <span class="keyword">string</span>, r <span class="keyword">rune</span>)</span> <span class="title">bool</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>字符或子串在字符串中出现的位置</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回子串sep在字符串s中第一次出现的索引值，不在的话返回-1.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Index</span><span class="params">(s, sep <span class="keyword">string</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="comment">//chars中任何一个Unicode代码点在s中首次出现的位置，不存在返回-1</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IndexAny</span><span class="params">(s, chars <span class="keyword">string</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="comment">//查找字符 c 在 s 中第一次出现的位置，其中 c 满足 f(c) 返回 true</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IndexFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) <span class="title">int</span>   //<span class="title">rune</span>类型是<span class="title">int32</span>别名，<span class="title">UTF</span>-8字符格式编码。</span></span><br><span class="line"><span class="comment">//返回字符c在s中第一次出现的位置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IndexByte</span><span class="params">(s <span class="keyword">string</span>, c <span class="keyword">byte</span>)</span> <span class="title">int</span>   //<span class="title">byte</span>是字节类型</span></span><br><span class="line"><span class="comment">// Unicode 代码点 r 在 s 中第一次出现的位置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">IndexRune</span><span class="params">(s <span class="keyword">string</span>, r <span class="keyword">rune</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="comment">//查找最后一次出现的位置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LastIndex</span><span class="params">(s, sep <span class="keyword">string</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LastIndexByte</span><span class="params">(s <span class="keyword">string</span>, c <span class="keyword">byte</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LastIndexAny</span><span class="params">(s, chars <span class="keyword">string</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LastIndexFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) <span class="title">int</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>子串出现次数</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Count</span><span class="params">(s, sep <span class="keyword">string</span>)</span> <span class="title">int</span>   //子串在<span class="title">s</span>字符串中出现的次数</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串是否有某个前缀或后缀</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// s 中是否以 prefix 开始</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HasPrefix</span><span class="params">(s, prefix <span class="keyword">string</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="comment">// s 中是否以 suffix 结尾</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">HasSuffix</span><span class="params">(s, suffix <span class="keyword">string</span>)</span> <span class="title">bool</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串转换</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToUpper</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToLower</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToTitle</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToUpperSpecial</span><span class="params">(_case unicode.SpecialCase, s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToLowerSpecial</span><span class="params">(_case unicode.SpecialCase, s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ToTitleSpecial</span><span class="params">(_case unicode.SpecialCase, s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Title</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串比较</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Compare</span><span class="params">(a, b <span class="keyword">string</span>)</span> <span class="title">int</span>  //返回不相等-1或者  相等0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EqualFold</span><span class="params">(s, t <span class="keyword">string</span>)</span> <span class="title">bool</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串清理</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Trim</span><span class="params">(s <span class="keyword">string</span>, cutset <span class="keyword">string</span>)</span> <span class="title">string</span> //去除字符串的头尾子字符串</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimLeft</span><span class="params">(s <span class="keyword">string</span>, cutset <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimRight</span><span class="params">(s <span class="keyword">string</span>, cutset <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimLeftFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimRightFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) <span class="title">string</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimSpace</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span> //字符串前后空格</span> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimPrefix</span><span class="params">(s, prefix <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TrimSuffix</span><span class="params">(s, suffix <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Fields</span><span class="params">(s <span class="keyword">string</span>)</span> []<span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FieldsFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) []<span class="title">string</span></span></span><br></pre></td></tr></table></figure>
+
+<p><code>空格的定义是 unicode.IsSpace</code></p>
+<p><strong>折合函数</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Fields</span><span class="params">(s <span class="keyword">string</span>)</span> []<span class="title">string</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">FieldsFunc</span><span class="params">(s <span class="keyword">string</span>, f <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">bool</span>) []<span class="title">string</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Split</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//四个函数是通过同一个内部函数(genSplit )实现的</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Split</span><span class="params">(s, sep <span class="keyword">string</span>)</span> []<span class="title">string</span></span> &#123; <span class="keyword">return</span> genSplit(s, sep, <span class="number">0</span>, <span class="number">-1</span>) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SplitAfter</span><span class="params">(s, sep <span class="keyword">string</span>)</span> []<span class="title">string</span></span> &#123; <span class="keyword">return</span> genSplit(s, sep, <span class="built_in">len</span>(sep), <span class="number">-1</span>) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SplitN</span><span class="params">(s, sep <span class="keyword">string</span>, n <span class="keyword">int</span>)</span> []<span class="title">string</span></span> &#123; <span class="keyword">return</span> genSplit(s, sep, <span class="number">0</span>, n) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SplitAfterN</span><span class="params">(s, sep <span class="keyword">string</span>, n <span class="keyword">int</span>)</span> []<span class="title">string</span></span> &#123; <span class="keyword">return</span> genSplit(s, sep, <span class="built_in">len</span>(sep), n) &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Join</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Join</span><span class="params">(a []<span class="keyword">string</span>, sep <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>字符串重复次数</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Repeat</span><span class="params">(s <span class="keyword">string</span>, count <span class="keyword">int</span>)</span> <span class="title">string</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>替换</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用 new 替换 s 中的 old，一共替换 n 个。</span></span><br><span class="line"><span class="comment">// 如果 n &lt; 0，则不限制替换次数，即全部替换</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Replace</span><span class="params">(s, old, <span class="built_in">new</span> <span class="keyword">string</span>, n <span class="keyword">int</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="comment">//满足函数实现的进行替换</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Map</span><span class="params">(mapping <span class="keyword">func</span>(<span class="keyword">rune</span>)</span> <span class="title">rune</span>, <span class="title">s</span> <span class="title">string</span>) <span class="title">string</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Replacer</strong>：</p>
+<p>strings.NewReplacer,replacer.Replace(),它按对传入参数后，能依优先级替换，并能处理中文字符串参数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个替换规则，参数为“查找内容”和“替换内容”的交替形式。</span></span><br><span class="line"><span class="comment">// 替换操作会依次将第 1 个字符串替换为第 2 个字符串，将第 3 个字符串</span></span><br><span class="line"><span class="comment">// 替换为第 4 个字符串，以此类推。</span></span><br><span class="line"><span class="comment">// 替换规则可以同时被多个例程使用。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewReplacer</span><span class="params">(oldnew ...<span class="keyword">string</span>)</span> *<span class="title">Replacer</span></span></span><br><span class="line"><span class="comment">// 使用替换规则对 s 进行替换并返回结果。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Replacer)</span> <span class="title">Replace</span><span class="params">(s <span class="keyword">string</span>)</span> <span class="title">string</span></span></span><br><span class="line"><span class="comment">// 使用替换规则对 s 进行替换并将结果写入 w。</span></span><br><span class="line"><span class="comment">// 返回写入的字节数和遇到的错误。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Replacer)</span> <span class="title">WriteString</span><span class="params">(w io.Writer, s <span class="keyword">string</span>)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Reader</strong>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">Read</span><span class="params">(b []<span class="keyword">byte</span>)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">ReadAt</span><span class="params">(b []<span class="keyword">byte</span>, off <span class="keyword">int64</span>)</span> <span class="params">(n <span class="keyword">int</span>, err error)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">WriteTo</span><span class="params">(w io.Writer)</span> <span class="params">(n <span class="keyword">int64</span>, err error)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">Seek</span><span class="params">(offset <span class="keyword">int64</span>, whence <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int64</span>, error)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">ReadByte</span><span class="params">()</span> <span class="params">(<span class="keyword">byte</span>, error)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">UnreadByte</span><span class="params">()</span> <span class="title">error</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">ReadRune</span><span class="params">()</span> <span class="params">(ch <span class="keyword">rune</span>, size <span class="keyword">int</span>, err error)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">UnreadRune</span><span class="params">()</span> <span class="title">error</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">Size</span><span class="params">()</span> <span class="title">int64</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Reader)</span> <span class="title">Reset</span><span class="params">(s <span class="keyword">string</span>)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>摘选自</p>
+<ol>
+<li><a href="https://blog.csdn.net/li_101357/article/details/80241224" target="_blank" rel="noopener">https://blog.csdn.net/li_101357/article/details/80241224</a></li>
+<li><a href="https://blog.csdn.net/weixin_33769207/article/details/91699678" target="_blank" rel="noopener">https://blog.csdn.net/weixin_33769207/article/details/91699678</a></li>
+</ol>
+<p>并修改</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go/" rel="tag"># go</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/19/redis%E6%B7%B1%E5%BA%A6%E5%8E%86%E9%99%A9(%E6%B7%B1%E5%85%A5%E7%AF%87)/" rel="prev" title="redis深度历险(深入篇)">
+      <i class="fa fa-chevron-left"></i> redis深度历险(深入篇)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/26/go-%E5%AE%B9%E5%99%A8/" rel="next" title="go-容器">
+      go-容器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#string操作"><span class="nav-text">string操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strings包"><span class="nav-text">strings包</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张三"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">张三</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张三</span>
+</div>
+
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

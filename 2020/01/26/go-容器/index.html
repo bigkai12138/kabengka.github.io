@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"always","padding":18,"offset":12,"onmobile":false,"scrollpercent":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="数组是类型相同的元素的集合，切片（slice）是建立在数组之上的更方便，更灵活，更强大的数据结构。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-容器">
+<meta property="og:url" content="http://yoursite.com/2020/01/26/go-%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:site_name" content="张三的歌">
+<meta property="og:description" content="数组是类型相同的元素的集合，切片（slice）是建立在数组之上的更方便，更灵活，更强大的数据结构。">
+<meta property="article:published_time" content="2020-01-26T03:19:05.000Z">
+<meta property="article:modified_time" content="2020-01-26T06:37:18.053Z">
+<meta property="article:author" content="张三">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/01/26/go-%E5%AE%B9%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>go-容器 | 张三的歌</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="张三的歌" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">张三的歌</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">学习是一种信仰</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-about"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-categories"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archives"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/go-%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="张三">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张三的歌">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go-容器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-26 11:19:05 / 修改时间：14:37:18" itemprop="dateCreated datePublished" datetime="2020-01-26T11:19:05+08:00">2020-01-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>数组是类型相同的元素的集合，切片（slice）是建立在数组之上的更方便，更灵活，更强大的数据结构。</strong></p>
+<a id="more"></a>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明数组</span></span><br><span class="line"><span class="keyword">var</span> a[<span class="number">3</span>]<span class="keyword">int</span></span><br><span class="line">b :=[<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;</span><br><span class="line">c :=[<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>&#125; <span class="comment">//数组默认值为0</span></span><br><span class="line"><span class="comment">//在声明数组时你可以忽略数组的长度并用 ... 代替，让编译器自动推导数组的长度。</span></span><br><span class="line">d :=[...]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数组是值类型，当数组变量被赋值时，将会获得原数组的拷贝，新数组中元素的改变不会影响原数组中的值（如果将数组作为参数传递给函数，仍然是值传递）。要想操作原数组，就要取址。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = &amp;[<span class="number">3</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">num1 := num</span><br><span class="line">num1[<span class="number">1</span>] = <span class="number">4</span></span><br><span class="line">fmt.Println(num1)</span><br><span class="line">fmt.Println(num)</span><br></pre></td></tr></table></figure>
+
+<p>遍历数组：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i :=<span class="number">0</span>; i &lt; <span class="built_in">len</span>(num); i++)</span><br><span class="line"><span class="keyword">for</span> i, v := <span class="keyword">range</span> num1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然看起来足够灵活，但是数组的长度是固定的，没办法动态增加数组的长度。而切片却没有这个限制，实际上在 Go 中，切片比数组更为常见。</p>
+</blockquote>
+<h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><p><strong>切片并不存储任何元素而只是对现有数组的引用。</strong></p>
+<p>切片本身不包含任何数据。它仅仅是底层数组的一个上层表示。对切片进行的任何修改都将反映在底层数组中。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//切片的结构</span></span><br><span class="line"><span class="keyword">type</span> slice <span class="keyword">struct</span> &#123;  </span><br><span class="line">    Length        <span class="keyword">int</span></span><br><span class="line">    Capacity      <span class="keyword">int</span></span><br><span class="line">    ZerothElement *<span class="keyword">byte</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> q = []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">q1 := q</span><br><span class="line">q1[<span class="number">2</span>]=<span class="number">5</span></span><br><span class="line">fmt.Println(q)</span><br><span class="line">fmt.Println(q1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>切片的长度和容量</strong>：切片的长度是指切片中元素的个数。切片的容量是指从切片的起始元素开始到其底层数组中的最后一个元素的个数。切片的长度可以动态的改变（最大为其容量）。任何超出最大容量的操作都会发生运行时错误。</p>
+<p><strong>追加元素到切片</strong>：当新元素通过调用 <code>append</code> 函数追加到切片末尾时，如果超出了容量，<code>append</code> 内部会创建一个新的数组。并将原有数组的元素被拷贝给这个新的数组，最后返回建立在这个新数组上的切片。这个新切片的容量是旧切片的二倍。</p>
+<blockquote>
+<p><strong>内存优化</strong>：切片保留对底层数组的引用。只要切片存在于内存中，数组就不能被垃圾回收。当我们需要处理一个大数组的一小片切片时，可以使用 copy]函数 <code>func copy(dst, src []T) int</code> 来创建该切片的一个拷贝。这样我们就可以使用这个新的切片，原来的数组可以被垃圾回收。</p>
+</blockquote>
+<p>切片特点：</p>
+<ol>
+<li>占用资源小（只是存储地址）</li>
+<li>slice[a: b :​c]   包含a索引值，不包含b索引值，容量上界索引为c（cap中不包含索引C位置）</li>
+<li>slice append 只能向后扩展，不能向前扩展<ol>
+<li>某次操作未超过该slice容量上界索引，此次改变会更新原数组。</li>
+<li>某次操作超过该slice容量上界索引则新的被操作对象数组会被新建，此次改变不会更新原数组</li>
+</ol>
+</li>
+</ol>
+<h2 id="make"><a href="#make" class="headerlink" title="make"></a>make</h2><blockquote>
+<p>make和new都是内建函数，但是new 的作用是初始化一个指向类型的指针(*T)，make 的作用是为 slice，map 或 chan 初始化并返回引用(T)。</p>
+</blockquote>
+<blockquote>
+<p>引用和指针：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> m;</span><br><span class="line"><span class="keyword">int</span> &amp;n=m; <span class="comment">//n 是m的一个引用（reference），m 是被引用物（referent）</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 值传递</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func1</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function"><span class="comment">// 引用传递</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func1</span><span class="params">(<span class="keyword">int</span> *x)</span> </span></span><br><span class="line"><span class="function"><span class="comment">// 指针传递</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Func1</span><span class="params">(<span class="keyword">int</span> &amp;x)</span> </span></span><br></pre></td></tr></table></figure>
+
+<p>(1)指针是实体，引用是别名，没有空间。</p>
+<p>(2)引用定义时必须初始化，指针不用。</p>
+<p>(3)指针可以改，引用不可以。</p>
+<p>(4)引用不能为空，指针可以。</p>
+<p>(5)sizeof(引用)计算的是它引用的对象的大小，而sizeof(指针)计算的是指针本身的大小。</p>
+<p>(6)不能有NULL引用，引用必须与一块合法的存储单元关联。</p>
+<p>(7)给引用赋值修改的是该引用与对象所关联的值，而不是与引用关联的对象。</p>
+<p>(8)如果返回的是动态分配的内存或对象，必须使用指针，使用引用会产生内存泄漏。</p>
+<p>(9)对引用的操作即是对变量本身的操作。</p>
+</blockquote>
+<h2 id="container"><a href="#container" class="headerlink" title="container"></a>container</h2><h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 list</span></span><br><span class="line">l := list.New()</span><br><span class="line"><span class="comment">//把4元素放在最后</span></span><br><span class="line">e4 := l.PushBack(<span class="number">4</span>)</span><br><span class="line"><span class="comment">//把1元素放在最前</span></span><br><span class="line">e1 := l.PushFront(<span class="number">1</span>)</span><br><span class="line"><span class="comment">//在e4元素前面插入3</span></span><br><span class="line">l.InsertBefore(<span class="number">3</span>, e4)</span><br><span class="line"><span class="comment">//在e1后面插入2</span></span><br><span class="line">e2:=l.InsertAfter(<span class="number">2</span>, e1)</span><br><span class="line"><span class="comment">// 遍历所有元素并打印其内容</span></span><br><span class="line">fmt.Println(<span class="string">" 元素 "</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取l 最前的元素</span></span><br><span class="line">et1:=l.Front();</span><br><span class="line">fmt.Println(<span class="string">"list 最前的元素 Front  "</span>,et1.Value)</span><br><span class="line"><span class="comment">//获取l 最后的元素</span></span><br><span class="line">et2:=l.Back()</span><br><span class="line">fmt.Println(<span class="string">"list 最后的元素  Back "</span>,et2.Value)</span><br><span class="line"><span class="comment">//获取l的长度</span></span><br><span class="line">fmt.Println(<span class="string">"list 的长度为： Len "</span>,l.Len())</span><br><span class="line"><span class="comment">//向后移动</span></span><br><span class="line">l.MoveAfter(e1,e2)</span><br><span class="line">fmt.Println(<span class="string">"把1元素移动到2元素的后面 向后移动后 MoveAfter :"</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//向前移动</span></span><br><span class="line">l.MoveBefore(e1,e2)</span><br><span class="line">fmt.Println(<span class="string">"\n把1元素移动到2元素的前面 向前移动后 MoveBefore :"</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//移动到最后面</span></span><br><span class="line">l. MoveToBack(e1)</span><br><span class="line">fmt.Println(<span class="string">"\n 1元素出现在最后面 MoveToBack "</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//移动到最前面</span></span><br><span class="line">l. MoveToFront(e1)</span><br><span class="line">fmt.Println(<span class="string">"\n 1元素出现在最前面 MoveToFront "</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除元素</span></span><br><span class="line">fmt.Println(<span class="string">""</span>)</span><br><span class="line">l.Remove(e1)</span><br><span class="line">fmt.Println(<span class="string">"\n e1元素移除后 Remove "</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// init 可以用作 clear</span></span><br><span class="line">l.Init()</span><br><span class="line">fmt.Println(<span class="string">"\n list init()后 "</span>)</span><br><span class="line"><span class="keyword">for</span> e := l.Front(); e != <span class="literal">nil</span>; e = e.Next() &#123;</span><br><span class="line">    fmt.Print(e.Value,<span class="string">" "</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="string">"list 的长度Init  "</span>,l.Len())</span><br></pre></td></tr></table></figure>
+
+<h3 id="heap"><a href="#heap" class="headerlink" title="heap"></a>heap</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IntHeap []<span class="keyword">int</span></span><br><span class="line"><span class="comment">//我们自定义一个堆需要实现5个接口</span></span><br><span class="line"><span class="comment">//Len(),Less(),Swap()这是继承自sort.Interface</span></span><br><span class="line"><span class="comment">//Push()和Pop()是堆自已的接口</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//返回长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(*h);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//比较大小(实现最小堆)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (*h)[i] &lt; (*h)[j];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//交换值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    (*h)[i], (*h)[j] = (*h)[j], (*h)[i];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//压入数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    <span class="comment">//将数据追加到h中</span></span><br><span class="line">    *h = <span class="built_in">append</span>(*h, x.(<span class="keyword">int</span>))</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//弹出数据</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    old := *h;</span><br><span class="line">    n := <span class="built_in">len</span>(old);</span><br><span class="line">    x := old[n<span class="number">-1</span>];</span><br><span class="line">    <span class="comment">//让h指向新的slice</span></span><br><span class="line">    *h = old[<span class="number">0</span>: n<span class="number">-1</span>];</span><br><span class="line">    <span class="comment">//返回最后一个元素</span></span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//打印堆</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h *IntHeap)</span> <span class="title">PrintHeap</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//元素的索引号</span></span><br><span class="line">    i := <span class="number">0</span></span><br><span class="line">    <span class="comment">//层级的元素个数</span></span><br><span class="line">    levelCount := <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i+<span class="number">1</span> &lt;= h.Len() &#123;</span><br><span class="line">        fmt.Println((*h)[i: i+levelCount])</span><br><span class="line">        i += levelCount</span><br><span class="line">        <span class="keyword">if</span> (i + levelCount*<span class="number">2</span>) &lt;= h.Len() &#123;</span><br><span class="line">            levelCount *= <span class="number">2</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            levelCount = h.Len() - i</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a := IntHeap&#123;<span class="number">6</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">//初始化堆</span></span><br><span class="line">heap.Init(&amp;a);</span><br><span class="line">a.PrintHeap();</span><br><span class="line"><span class="comment">//弹出数据，保证每次操作都是规范的堆结构</span></span><br><span class="line">fmt.Println(heap.Pop(&amp;a));</span><br><span class="line">a.PrintHeap();</span><br><span class="line">fmt.Println(heap.Pop(&amp;a));</span><br><span class="line">a.PrintHeap();</span><br><span class="line">heap.Push(&amp;a, <span class="number">0</span>);</span><br><span class="line">heap.Push(&amp;a, <span class="number">8</span>);</span><br><span class="line">a.PrintHeap();</span><br></pre></td></tr></table></figure>
+
+<h3 id="ring"><a href="#ring" class="headerlink" title="ring"></a>ring</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printRing</span><span class="params">(r *ring.Ring)</span></span> &#123;</span><br><span class="line">    r.Do(<span class="function"><span class="keyword">func</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">        fmt.Print(v.(<span class="keyword">int</span>), <span class="string">" "</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    fmt.Println();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建环形链表</span></span><br><span class="line">r := ring.New(<span class="number">5</span>);</span><br><span class="line"><span class="comment">//循环赋值</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">    r.Value = i;</span><br><span class="line">    <span class="comment">//取得下一个元素</span></span><br><span class="line">    r = r.Next();</span><br><span class="line">&#125;</span><br><span class="line">printRing(r);</span><br><span class="line"><span class="comment">//环的长度</span></span><br><span class="line">fmt.Println(r.Len());</span><br><span class="line"></span><br><span class="line"><span class="comment">//移动环的指针</span></span><br><span class="line">r.Move(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//从当前指针删除n个元素</span></span><br><span class="line">r.Unlink(<span class="number">2</span>);</span><br><span class="line">printRing(r);</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接两个环</span></span><br><span class="line">r2 := ring.New(<span class="number">3</span>);</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">3</span>; i++ &#123;</span><br><span class="line">    r2.Value = i + <span class="number">10</span>;</span><br><span class="line">    <span class="comment">//取得下一个元素</span></span><br><span class="line">    r2 = r2.Next();</span><br><span class="line">&#125;</span><br><span class="line">printRing(r2);</span><br><span class="line"></span><br><span class="line">r.Link(r2);</span><br><span class="line">printRing(r);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go/" rel="tag"># go</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/26/go-string/" rel="prev" title="go-string">
+      <i class="fa fa-chevron-left"></i> go-string
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切片"><span class="nav-text">切片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#make"><span class="nav-text">make</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#container"><span class="nav-text">container</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list"><span class="nav-text">list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#heap"><span class="nav-text">heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ring"><span class="nav-text">ring</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张三"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">张三</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张三</span>
+</div>
+
+
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

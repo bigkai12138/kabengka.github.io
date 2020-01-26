@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-19T08:53:16.779Z</updated>
+  <updated>2020-01-26T06:37:18.053Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>go-容器</title>
+    <link href="http://yoursite.com/2020/01/26/go-%E5%AE%B9%E5%99%A8/"/>
+    <id>http://yoursite.com/2020/01/26/go-%E5%AE%B9%E5%99%A8/</id>
+    <published>2020-01-26T03:19:05.000Z</published>
+    <updated>2020-01-26T06:37:18.053Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;数组是类型相同的元素的集合，切片（slice）是建立在数组之上的更方便，更灵活，更强大的数据结构。&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="go" scheme="http://yoursite.com/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-string</title>
+    <link href="http://yoursite.com/2020/01/26/go-string/"/>
+    <id>http://yoursite.com/2020/01/26/go-string/</id>
+    <published>2020-01-26T03:11:52.000Z</published>
+    <updated>2020-01-26T03:17:19.471Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;go标准库builtin给出了所有内置类型的定义（位于：src/builtin/builtin.go），关于string的定义如下&lt;/strong&gt;：&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="go" scheme="http://yoursite.com/tags/go/"/>
+    
+  </entry>
   
   <entry>
     <title>redis深度历险(深入篇)</title>
@@ -349,44 +387,6 @@
     <summary type="html">
     
       &lt;h3 id=&quot;访问控制权限&quot;&gt;&lt;a href=&quot;#访问控制权限&quot; class=&quot;headerlink&quot; title=&quot;访问控制权限&quot;&gt;&lt;/a&gt;访问控制权限&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;package用于控制构件构建捆绑到一个内聚的类库单元中。访问修饰符会因此受到影响。访问权限控制的等级，从最小到最大权限依次为：public，protected、包访问权限、private&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一切皆对象(1)</title>
-    <link href="http://yoursite.com/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/"/>
-    <id>http://yoursite.com/2020/01/07/%E4%B8%80%E5%88%87%E7%9A%86%E5%AF%B9%E8%B1%A1(1)/</id>
-    <published>2020-01-07T03:03:36.000Z</published>
-    <updated>2020-01-12T07:05:17.037Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 java中一切都是对象，操作的标识符便是对象的一个“引用”。例：&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OOP</title>
-    <link href="http://yoursite.com/2020/01/05/OOP/"/>
-    <id>http://yoursite.com/2020/01/05/OOP/</id>
-    <published>2020-01-05T02:55:08.000Z</published>
-    <updated>2020-01-12T03:09:30.809Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;抽象&quot;&gt;&lt;a href=&quot;#抽象&quot; class=&quot;headerlink&quot; title=&quot;抽象&quot;&gt;&lt;/a&gt;抽象&lt;/h3&gt;&lt;p&gt;面向对象程序设计(Object-oriented Programming   OOP)&lt;/p&gt;
     
     </summary>
     
